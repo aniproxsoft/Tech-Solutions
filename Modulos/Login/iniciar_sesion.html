@@ -54,18 +54,18 @@
                     </a>
                 </li> -->
                 <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="Modulos/Registrate/formUserRegistrarse.html">
+                    <a class="js-scroll-trigger" href="../Registrate/formUserRegistrarse.html">
                         ¿Solicitas empleados? Registrate
                     </a>
                 </li>
                 <!-- <li class="sidebar-nav-item">
-                    <a class="js-scroll-trigger" href="Modulos/Login/iniciar_sesion.html">
+                    <a class="js-scroll-trigger" href="modulos/Login/iniciar_sesion.html">
                         Iniciar sesión
                     </a>
                 </li> -->
             </ul>
         </nav>
-        <form action="" id="login">
+        <form action="CtrlIniciarSesion.php" id="login" method="post">
             <section class="content-section2 bg-primary text-white text-center" id="tabla_empleos">
                 <div class="container">
                     <div class="content-section-heading">
@@ -77,10 +77,10 @@
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                            Usuario
+                                            Correo electrónico
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control" type="text">
+                                    <input aria-describedby="input" aria-label="small" class="form-control" name="email" required="true" type="email">
                                     </input>
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
@@ -89,32 +89,35 @@
                                             Contraseña
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control" type="password">
+                                    <input aria-describedby="input" aria-label="small" class="form-control" maxlength="50" minlength="6" name="password" required="true" type="password">
                                     </input>
                                 </div>
                                 <!--  <a class="btn btn-danger btn-xl " href="#">
                                 Cancelar
                             </a> -->
-                                <a class="btn btn-secondary btn-xl " href="#">
-                                    Entrar
-                                </a>
+                                <input class="btn btn-secondary btn-xl " name="entrar" type="submit" value="Entrar">
+                                </input>
+                                <br>
+                                    <a class="link-regreso" href="../../index.html">
+                                        Volver a job crusade
+                                    </a>
+                                    -
+                                    <br>
+                                        <a class="link-regreso" href="../Registrate/formUserRegistrarse.html">
+                                            ¿Solicitas empleados?  Registrarse
+                                        </a>
+                                    </br>
+                                </br>
                             </div>
                         </center>
-                        <a class="link-regreso" href="../../index.html">
-                            Volver a job crusade
-                        </a>
-                        -
-                        <br>
-                            <a class="link-regreso" href="../../Modulos/Registrate/formUserRegistrarse.html">
-                                ¿Solicitas empleados?  Registrarse
-                            </a>
-                        </br>
                     </div>
                 </div>
             </section>
         </form>
-        <!-- Footer -->
-        <!--    <center>
+    </body>
+</html>
+<!-- Footer -->
+<!--    <center>
             <div id="contacto">
                 <h2>
                     Contacto:
@@ -151,21 +154,19 @@
                 </p>
             </div>
         </footer> -->
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-            <i class="fas fa-angle-up">
-            </i>
-        </a>
-        <!-- Bootstrap core JavaScript -->
-        <script src="../../vendor/jquery/jquery.min.js">
-        </script>
-        <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js">
-        </script>
-        <!-- Plugin JavaScript -->
-        <script src="../../vendor/jquery-easing/jquery.easing.min.js">
-        </script>
-        <!-- Custom scripts for this template -->
-        <script src="../../js/stylish-portfolio.min.js">
-        </script>
-    </body>
-</html>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up">
+    </i>
+</a>
+<!-- Bootstrap core JavaScript -->
+<script src="../../vendor/jquery/jquery.min.js">
+</script>
+<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js">
+</script>
+<!-- Plugin JavaScript -->
+<script src="../../vendor/jquery-easing/jquery.easing.min.js">
+</script>
+<!-- Custom scripts for this template -->
+<script src="../../js/stylish-portfolio.min.js">
+</script>
