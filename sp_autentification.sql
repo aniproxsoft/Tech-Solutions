@@ -32,7 +32,7 @@ BEGIN
         flag='1'
         WHERE email=user;
 
-        
+        //hola
     ELSE
     	set flag= false;
         CREATE TEMPORARY TABLE temp_usuario AS
