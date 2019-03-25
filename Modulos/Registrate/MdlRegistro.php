@@ -134,85 +134,81 @@ class MdlRegistro
 
   //Mostrar ciudad
       public function listarEstado(){
-								$con=$this->conectarDB();
-								$registros = mysqli_query($con,"SELECT id_estado,nombre_estado FROM estado where id_ciudad=1")
-								or die(mysql_error($con));
-
-
-
-						while($reg=mysqli_fetch_array($registros)){
-
-						echo "<option value=".$reg['id_estado']." >".$reg['nombre_ciudad']."</option>";
-							}
-
-
-		}
+    		$registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
+                or die(mysql_error($conexion));
+                //mysqli_close();
+                while ($reg = mysqli_fetch_array($registros)) {
+                  echo '<option value="'.$reg['id_estado'].'">'.$reg["nombre_estado"].'</option>';
+                }
+	  }
 
         //Mostrar ciudad
       public function listarCiudades(){
-								$con=$this->conectarDB();
-								$registros = mysqli_query($con,"SELECT id_ciudad,nombre_ciudad FROM ciudad where id_ciudad=1")
-								or die(mysql_error($con));
-
-
-
-						while($reg=mysqli_fetch_array($registros)){
-
-						echo "<option value=".$reg['id_ciudad']." >".$reg['nombre_ciudad']."</option>";
-							}
-
-
+			$registros = mysqli_query ($conexion,"SELECT id_ciudad, nombre_ciudad FROM ciudad")
+            or die(mysql_error($conexion));
+            while($reg=mysqli_fetch_array($registros)){
+            echo '<option value="'.$reg['id_ciudad'].'">'.$reg["nombre_ciudad"].'</option>';
+            }
 		}
 
 
+  public function agregarUsuario(){
+    $registros=mysql_query($conexion, "SELECT * from estado ed, cuidad c,empresa e, usuario u  where ed.id_estado=c.id_estado and c.id_ciudad=e.id_ciudad and e.id_usuario=u.id_usuario") or 
+        die("Error en el registro:".mysqli_error($conexion));
+        if($resultado = mysqli_fetch_array($registros)){
+                $regU=mysqli_query($conexion,"INSERT INTO usuario(
+                        id_usuario,
+                        nombre,
+                        apellidos,
+                        email,
+                        password,
+                        id_rol,
+                        status)
+                        values(
+                        '$this->id_usuario',
+                        '$this->nombre',
+                        '$this->apellidos',
+                        '$this->email',
+                        '$this->email',
+                        '$this->password',
+                        '$this->id_rol',
+                        '$this->status'
+                        )")
+                        or die("Problemas con query:".mysqli_error());
+                        //header("location: ../Modulos/Registrate/CtrlRegistroE.php");
 
-
-  public function agregarEmpresa(){
-			$con=$this->conectarDB();
-			$registros=mysqli_query($con, "select * from empresa e,id_estado
-												where m.Cat_Delegaciones_claveDele=c.claveDele") or
-			die("Problemas en el select:".mysqli_error($con));
-
-			if($resultado = mysqli_fetch_array($registros)){
-									$con=mysqli_query($con,"INSERT INTO museos(
-
-													   nombreMuseo,
-													   tipo,
-													   Cat_Delegaciones_claveDele,
-													   numeroTelefono,
-													   calle,
-													   numero,
-													   horarioApertura,
-													   horarioCierre,
-													   cuota,
-													   descripcion
-
-
-
-													   ) values (
-
-													    '$this->nombreMuseo',
-													    '$this->tipo',
-													    '$this->Cat_Delegaciones_claveDele',
-														'$this->numeroTelefono',
-														'$this->calle',
-														'$this->numero',
-														'$this->horarioApertura',
-														'$this->horarioCierre',
-														'$this->cuota',
-														'$this->descripcion'
-															)"
-														)or die("Problemas en el select 2:".mysqli_error());
-									header("location: ../admin/museos.php");
-									//echo"bien";
-
-								}
-								else{
-									//header("location: museos.php");
-									echo"mal";
-								}
-
-		}
+    $regE=mysqli_query($conexion,"INSERT INTO empresa(id_empresa,
+                        direccion,
+                        nombre,
+                        id_estado,
+                        id_ciudad,
+                        codigo_postal,
+                        id_usuario,
+                        num_telefono,
+                        folio_convenio,
+                        rfc,
+                        status
+                        )values(
+                        '$this->id_empresa',
+                        '$this->direccion',
+                        '$this->id_estado',
+                        '$this->id_ciudad',
+                        '$this->codigo_postal',
+                        '$this->id_usuario',
+                        '$this->num_telefono',
+                        '$this->folio_convenio',
+                        '$this->rfc',
+                        '$this->status')")
+                        or die("Problemas con query:".mysqli_error());
+                       // header("location: ../Modulos/Registrate/CtrlRegistroE.php");
+                        }
+                        else{
+                         //     echo "Error en el registro"; 
+                        }
+  }
+													   
+													   
+														
 
 
 }
