@@ -87,10 +87,137 @@ $empresa = new EmpresaDTO();
                     </em>
                     ¡Bienvenido!
                 </h2>
-                <a class="btn btn-primary btn-xl" href="https://startbootstrap.com/template-overviews/stylish-portfolio/">
+                <a class="btn btn-primary btn-xl" href="../Registrate/formUserRegistrarse.html">
                     Publicar vacante
                 </a>
             </div>
+            <!--------------------------------------------------------------------------------------------------------------------------->
+            <!--form action="registroEm.php" id="registro" method="post">
+                                <div>
+
+                                <hr>
+                                <h1>Registrar datos empresa</h1>
+                                <br>
+                                 <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend" >
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">
+                                           Empresa
+                                        </span>
+                                    </div>
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"   id="nombreE" >
+                                    </input>
+                                    <div class="input-group-prepend" style="margin-left: 20px">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">
+                                            Dirección
+                                        </span>
+                                    </div>
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" id="direccion">
+                                        </input>
+                                        <div class="input-group-prepend" style="margin-left: 20px" >
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">
+                                                 Estado
+                                            </span>
+                                        </div>
+                                    <select>
+                                        <option id="estado" value="0">Seleccione:</option>
+                                          <?php
+                                          $registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
+                                            or die(mysql_error($conexion));
+                                            //mysqli_close();
+                                            while ($reg = mysqli_fetch_array($registros)) {
+                                              echo '<option value="'.$reg['id_estado'].'">'.$reg["nombre_estado"].'</option>';
+                                            }
+                                          ?>
+                                    </select>
+                                    </input>
+                                </div>
+                                <br>
+                                    <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend" >
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">
+                                           Codigo postal
+                                        </span>
+                                    </div>
+                                    <input id="cp" aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number"  value="" >
+                                    </input>
+
+                                         <div class="input-group-prepend" style="margin-left: 20px" >
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">
+                                                 Ciudad
+                                            </span>
+                                        </div>
+                                    <select>
+                                        <option id="ciudad" value="0">Seleccione:</option>
+                                          <?php
+                                          $registros = mysqli_query ($conexion,"SELECT id_ciudad, nombre_ciudad FROM ciudad")
+                                            or die(mysql_error($conexion));
+                                            while($reg=mysqli_fetch_array($registros)){
+                                            echo '<option value="'.$reg['id_ciudad'].'">'.$reg["nombre_ciudad"].'</option>';
+                                            }
+                                          ?>
+                                    </select>
+                                    </input>
+                                    <div class="input-group-prepend" style="margin-left: 20px">
+                                         <span class="input-group-text" id="inputGroup-sizing-sm">
+                                            Estatus
+                                         </span>
+                                    </div>
+                                    <input aria-describedby="input" aria-label="small" class="form-control" readonly="true" type="text" value="3" id="status">
+                                    </input>
+                                    </div>
+                                    <br>
+
+
+
+                                <div class="input-group input-group-sm mb-3" style="width: 70%">
+                                    <div class="input-group-prepend" style="margin-left: 20px">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">
+                                            Número de telefono
+                                        </span>
+                                    </div>
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number" id="telefono" value="">
+                                        </input>
+
+                                    <div class="input-group-prepend" style="margin-left: 20px">
+                                         <span class="input-group-text" id="inputGroup-sizing-sm">
+                                                RFC
+                                         </span>
+                                    </div>
+                                        <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text" id="rfc">
+                                        </input>                                        
+
+                                        <div class="input-group-prepend" style="margin-left: 20px">
+                                         <span class="input-group-text" id="inputGroup-sizing-sm">
+                                                Convenio UTN
+                                         </span>
+                                    </div>
+                                        <input aria-describedby="input" aria-label="small" class="form-control" readonly="true" required="true" type="text" id="convenio">
+                                        </input>
+                                </div>                            
+                                </div>
+
+
+                            </div>
+                            </div>
+                        </center>
+                        <div class="col-12">
+                                <input class="btn btn-dark" type="reset" id="borrar" value="limpiar"/>
+                                <button class="btn btn-danger" href="../Modulos/Registrate/formUserRegistrarse.html" value="cancelar">
+                                    Cancelar
+                                </button>
+                                <a href="CtrlRegistroE.php" id="btnAgregarE" class="btn btn-warning" value="aceptar" >
+                                    Aceptar
+                                </a>
+                                <br>
+                                <br>
+                        </div>
+                    </div>
+                </div>
+                <div-->
+
+            <!---------------------------------------------------------------------------------------------------------------------------->
+
+
         </section>
         <!-- Footer -->
         <footer class="footer text-center">

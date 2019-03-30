@@ -1,163 +1,108 @@
+
 <?php
+ require_once "../../php/conexion/ClassConnection.php";    
 class MdlRegistro
 {
     public function __construct()
     {
     }
-
-    //variables
-    private $id_empresa;
-    private $direccion;
-    private $nombre_empresa;
-    private $id_estado;
-    private $nombre_estado;
-    private $id_ciudad;
-    private $nombre_ciudad;
-    private $codigo_postal;
     private $id_usuario;
-    private $num_telefono;
-    private $folio_convenio;
-    private $rfc;
-    private $status;
-
-    //Getters and Setters
-    public function getDireccion()
-    {
-        return $this->direccion;
-    }
-    public function getNombreEmpresa()
-    {
-        return $this->nombre_empresa;
-    }
-    public function getIDEstado()
-    {
-        return $this->id_estado;
-    }
-    public function getNombreEstado()
-    {
-        return $this->nombre_estado;
-    }
-    public function getIDCiudad()
-    {
-        return $this->id_ciudad;
-    }
-    public function getNombreCiudad()
-    {
-        return $this->nombre_ciudad;
-    }
-    public function getCodigoPostal()
-    {
-        return $this->codigo_postal;
-    }
-    public function getIDUsuarioE()
+    private $nombre_usuario;    
+    private $apellidos;    
+    private $email;
+    private $id_rol;
+    private $status_usuario;
+    //user getters and setters
+    public function getIDUsuario()
     {
         return $this->id_usuario;
     }
-    public function getNumTelefono()
+    public function getNombreUsuario()
     {
-        return $this->num_telefono;
+        return $this->nombre_usuario;
     }
-    public function getFolioConvenio()
+    public function getApellidos()
     {
-        return $this->folio_convenio;
+        return $this->apellidos;
     }
-    public function getRFC()
+    public function getEmail()
     {
-        return $this->rfc;
+        return $this->email;
     }
-    public function getStatus()
+    public function getIDRol()
     {
-        return $this->status;
+        return $this->id_rol;
     }
-
-    public function setIDEmpresa($id_empresa)
+    public function getStatus_usuario()
     {
-        $this->id_empresa = $id_empresa;
+        return $this->status_usuario;
     }
-    public function setDireccion($direccion)
+    public function getPassword()
     {
-        $this->direccion = $direccion;
+        return $this->password;
     }
-    public function setNombreEmpresa($nombre_empresa)
-    {
-        $this->nombre_empresa = $nombre_empresa;
-    }
-
-    public function setIDEstado($id_estado)
-    {
-        $this->id_estado = $id_estado;
-    }
-    public function setNombreEstado($nombre_estado)
-    {
-        $this->nombre_estado = $nombre_estado;
-    }
-    public function setIDCiudad($id_ciudad)
-    {
-        $this->id_ciudad = $id_ciudad;
-    }
-    public function setNombreCiudad($nombre_ciudad)
-    {
-        $this->nombre_ciudad = $nombre_ciudad;
-    }
-    public function setCodigoPostal($codigo_postal)
-    {
-        $this->codigo_postal = $codigo_postal;
-    }
-    public function setIDUsuarioE($id_usuario)
+    public function setIDUsuario($id_usuario)
     {
         $this->id_usuario = $id_usuario;
     }
-    public function setNumTelefono($num_telefono)
+    public function setNombreUsuario($nombre_usuario)
     {
-        $this->num_telefono = $num_telefono;
+        $this->nombre_usuario = $nombre_usuario;
     }
-    public function setFolioConvenio($folio_convenio)
+    public function setApellidos($apellidos)
     {
-        $this->folio_convenio = $folio_convenio;
+        $this->apellidos = $apellidos;
     }
-    public function setRFC($rfc)
+    public function setEmail($email)
     {
-        $this->rfc = $rfc;
+        $this->email = $email;
     }
-    public function setStatus($status)
+    public function setIDRol($id_rol)
     {
-        $this->status = $status;
+        $this->id_rol = $id_rol;
     }
-
-
-  //Conexion DB
-		public function conexionDB(){
-			$con=mysqli_connect("localhost","root","","job_crusade") or
-			die("Problemas con la conexion a la base de datos");
-			return $con;
-		}
-
-  //Mostrar ciudad
-      public function listarEstado(){
-    		$registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
-                or die(mysql_error($conexion));
-                //mysqli_close();
-                while ($reg = mysqli_fetch_array($registros)) {
-                  echo '<option value="'.$reg['id_estado'].'">'.$reg["nombre_estado"].'</option>';
-                }
-	  }
-
-        //Mostrar ciudad
-      public function listarCiudades(){
-			$registros = mysqli_query ($conexion,"SELECT id_ciudad, nombre_ciudad FROM ciudad")
-            or die(mysql_error($conexion));
-            while($reg=mysqli_fetch_array($registros)){
-            echo '<option value="'.$reg['id_ciudad'].'">'.$reg["nombre_ciudad"].'</option>';
-            }
-		}
-
-
+    public function setStatus_usuario($status_usuario)
+    {
+        $this->status_usuario = $status_usuario;
+    }
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+    //Getters and Setters
+/*---------------------------------------------------------------------------------------------------------------------*/
+//Inicializar las variables
+        public function inicializar(
+                    $id_usuario,                    
+                    $nombre_usuario,
+                    $apellidos,
+                    $email,
+                    $password,
+                    $id_rol,
+                    $status_usuario
+                                    ){
+        $this->id_usuario = $id_usuario;            
+        $this->nombre_usuario = $nombre_usuario;
+        $this->apellidos = $apellidos;
+        $this->email = $email;
+        $this->password = $password;
+        $this->id_rol = $id_rol;
+        $this->status_usuario = $status_usuario;
+    }
+/*------------------------------------------------------------------------------------------------------------------------*/
   public function agregarUsuario(){
-    $registros=mysql_query($conexion, "SELECT * from estado ed, cuidad c,empresa e, usuario u  where ed.id_estado=c.id_estado and c.id_ciudad=e.id_ciudad and e.id_usuario=u.id_usuario") or 
-        die("Error en el registro:".mysqli_error($conexion));
-        if($resultado = mysqli_fetch_array($registros)){
-                $regU=mysqli_query($conexion,"INSERT INTO usuario(
-                        id_usuario,
+    $db       = new connectionDB();
+    $conexion = $db->get_connection();    
+
+    if ('$_POST["nombre_usuario"]'!="" and '$_POST["apellidos"]'!="" and '$_POST["email"]'!="" and '$_POST["id_rol"]' !="" and '$_POST["status_usuario"]'!="" and '$_POST["password"]'!=""){
+            /*if($_POST["password"])==$_POST["password2"])){
+                echo "No coincide password";
+            }else {*/
+                $registros=mysqli_query($conexion, "SELECT * from usuario WHERE id_usuario=(SELECT MAX(id_usuario) as id FROM usuario)") 
+                or die("Error en el registro:".mysqli_error($conexion));
+                    if($resultado = mysqli_fetch_array($registros)){
+                        $regU=mysqli_query($conexion,"INSERT INTO usuario(
+                        id_usuario,                        
                         nombre,
                         apellidos,
                         email,
@@ -165,50 +110,32 @@ class MdlRegistro
                         id_rol,
                         status)
                         values(
-                        '$this->id_usuario',
-                        '$this->nombre',
-                        '$this->apellidos',
-                        '$this->email',
-                        '$this->email',
-                        '$this->password',
-                        '$this->id_rol',
-                        '$this->status'
+                        '$resultado[0]->setIDUsuario(id_usuario)',                        
+                        '$resultado[1]->setNombreUsuario(nombre)',
+                        '$resultado[2]->setApellidos(apellidos)',
+                        '$resultado[3]->setEmail(email)',
+                        '$resultado[4]->setPassword(password)',
+                        '$resultado[5]->setIDRol(id_rol)',
+                        '$resultado[6]->setStatus_usuario(status)'                        
                         )")
-                        or die("Problemas con query:".mysqli_error());
-                        //header("location: ../Modulos/Registrate/CtrlRegistroE.php");
-
-    $regE=mysqli_query($conexion,"INSERT INTO empresa(id_empresa,
-                        direccion,
-                        nombre,
-                        id_estado,
-                        id_ciudad,
-                        codigo_postal,
-                        id_usuario,
-                        num_telefono,
-                        folio_convenio,
-                        rfc,
-                        status
-                        )values(
-                        '$this->id_empresa',
-                        '$this->direccion',
-                        '$this->id_estado',
-                        '$this->id_ciudad',
-                        '$this->codigo_postal',
-                        '$this->id_usuario',
-                        '$this->num_telefono',
-                        '$this->folio_convenio',
-                        '$this->rfc',
-                        '$this->status')")
-                        or die("Problemas con query:".mysqli_error());
-                       // header("location: ../Modulos/Registrate/CtrlRegistroE.php");
+                        or die("Problemas con query:".mysqli_error($conexion));
+                         echo "<table class='striped centered responsive-table'>
+                            <thead>
+                            <tr>
+                                <th data-field='id'>Nombre</th>
+                                <th data-field='id'>apellidos</th>
+                                <th data-field='id'>email</th>
+                                <th data-field='id'>id_rol</th>
+                                <th data-field='id'>status_usuario</th>
+                                <th data-field='acciones'>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>";
+                            // header("location: ../Modulos/Registrate/CtrlRegistroE.php");
+                            }
+  }else{
+                              echo "Error en el registro"; 
                         }
-                        else{
-                         //     echo "Error en el registro"; 
-                        }
-  }
-													   
-													   
-														
-
-
 }
+}
+?>

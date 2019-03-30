@@ -13,11 +13,11 @@ $statement = $conexion->prepare("CALL sp_autentification(?,?)");
 
 $correo   = $usuario->getEmail();
 $password = $usuario->getPassword();
-
+//string s int i poner todos los atributos
 $statement->bind_param("ss", $correo, $password);
 
 $statement->execute();
-
+//iduser flag msj en el orden q return
 $statement->bind_result($flag, $id_rol, $nombre, $apellidos, $email, $nombre_rol, $nombre_empresa, $direccion, $nombre_estado, $nombre_ciudad, $codigo_postal, $num_telefono, $folio_convenio, $rfc, $status);
 
 $statement->fetch();
@@ -43,6 +43,7 @@ if ($flag == 1 and $usuario->getIDRol() == 1) {
 	<script type="text/javascript">
 		alert("Error contraseña y/o correo incorrecto")
 		location.href="iniciar_sesion.html";
+		//poner msj q esta en bd
 	</script>
 	<?php
 

@@ -1,14 +1,14 @@
 <?php
 require_once "../../php/conexion/ClassConnection.php";
-//include "../../Modulos/Registrate/CtrlRegistroE.php";
-
+include "../../php/DTO/UsuarioDTO.php";
+include "../../Modulos/Registrate/insertar.php";
 $db       = new connectionDB();
 $conexion = $db->get_connection();
-
+$usuario = new UsuarioDTO();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html >
     <head>
         <meta charset="utf-8"/>
             <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
@@ -64,16 +64,24 @@ $conexion = $db->get_connection();
                 </li-->
             </ul>
         </nav>
-        <form action="registroE.php" id="registro" method="post">
-            <section class="content-section2 bg-primary text-white text-center">
+        <form action="insertar.php" id="registroUs" method="post">
+            <section class="content-section2 bg-primary text-white text-center" >
             <center>
+            <div id="datos_usuario" >
+
+                <div class="container">
+                    <div class="content-section-heading">
+                        <br>
+                        <h1>Información</h1>
+                        <br>
+                        <center>
             <div id="datos_empresa" >
 
                 <div class="container">
                     <div class="content-section-heading">
 
                         <br>
-                        <h1>Registrar datos usuario</h1>
+                        <h1>Datos usuario</h1>
                         <br>
                         <center>
                             <div id="formulario2" >
@@ -83,64 +91,54 @@ $conexion = $db->get_connection();
                                            Nombre
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text" id="nombre" >
+                                    <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text"   value="" name="nombre_u">
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
                                             Apellidos
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  id="apellidos">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"   value="" name="apellidos">
                                         </input>
-                                        <div class="input-group-prepend" style="margin-left: 20px" >
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                                 Rol
-                                            </span>
-                                        </div>
-                                    <select>
-                                        <option id="nombre_rol" value="0">Seleccione:</option>
-                                          <?php
-                                          $registros = mysqli_query ($conexion,"SELECT id_rol, rol_nombre FROM usuario_rol where id_rol=1")
-                                            or die(mysql_error($conexion));
-                                            //mysqli_close();
-                                            while ($reg = mysqli_fetch_array($registros)) {
-                                              echo '<option value="'.$reg['id_rol'].'">'.$reg["rol_nombre"].'</option>';
-                                            }
-                                          ?>
-                                    </select>
+                                        
                                     <div class="input-group-prepend" style="margin-left: 20px" >
                                             <span class="input-group-text" id="inputGroup-sizing-sm">
                                                  Correo Electrónico
                                             </span>
                                         </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="email"   id="email" >
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="email"  value="" name="email">
+                                    </input>
+                                    <div class="input-group-prepend" style="margin-left: 20px" >
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">
+                                                 Contraseña
+                                            </span>
+                                        </div>
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"   value="" name="pass">
                                     </input>
                                     </div>
                                     </div>
+
+
+
                                 </div>
-                                <div>
-
-
-
-
 
                                 <hr>
-                                <h1>Registrar datos empresa</h1>
+                                <!--h1>Datos empresa</h1-->
                                 <br>
                                  <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend" >
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                           Empresa
+                                           Confirmar contraseña
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"   id="nombreE" >
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"  value="" name="cpass">
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                            Dirección
+                                            Empresa
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" id="direccion">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="nombre_e">
                                         </input>
                                         <div class="input-group-prepend" style="margin-left: 20px" >
                                             <span class="input-group-text" id="inputGroup-sizing-sm">
@@ -148,7 +146,7 @@ $conexion = $db->get_connection();
                                             </span>
                                         </div>
                                     <select>
-                                        <option id="estado" value="0">Seleccione:</option>
+                                        <option  id="estado" value="0">Seleccione:</option>
                                           <?php
                                           $registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
                                             or die(mysql_error($conexion));
@@ -164,10 +162,10 @@ $conexion = $db->get_connection();
                                     <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend" >
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                           Codigo postal
+                                           Dirección
                                         </span>
                                     </div>
-                                    <input id="cp" aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number"  value="" >
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="dirección">
                                     </input>
 
                                          <div class="input-group-prepend" style="margin-left: 20px" >
@@ -185,13 +183,12 @@ $conexion = $db->get_connection();
                                             }
                                           ?>
                                     </select>
-                                    </input>
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                          <span class="input-group-text" id="inputGroup-sizing-sm">
-                                            Estatus
+                                            Número de teléfono
                                          </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control" readonly="true" type="text" value="3" id="status">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number" value="">
                                     </input>
                                     </div>
                                     <br>
@@ -201,237 +198,52 @@ $conexion = $db->get_connection();
                                 <div class="input-group input-group-sm mb-3" style="width: 70%">
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                            Número de telefono
+                                            Convenio UTN
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number" id="telefono" value="">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="convenio">
                                         </input>
 
                                     <div class="input-group-prepend" style="margin-left: 20px">
+                                         
+                                    </div>
+                                        
+
+                                        <div class="input-group-prepend" style="margin-left: 20px">
                                          <span class="input-group-text" id="inputGroup-sizing-sm">
                                                 RFC
                                          </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text" id="rfc">
-                                        </input>                                        
-
-                                        <div class="input-group-prepend" style="margin-left: 20px">
-                                         <span class="input-group-text" id="inputGroup-sizing-sm">
-                                                Convenio UTN
-                                         </span>
-                                    </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control" readonly="true" required="true" type="text" id="convenio">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="convenio">
                                         </input>
-                                </div>                            
+                                </div>
+                            
                                 </div>
 
-
                             </div>
-                            </div>
+                            </div> 
                         </center>
                         <div class="col-12">
                                 <input class="btn btn-dark" type="reset" id="borrar" value="limpiar"/>
                                 <button class="btn btn-danger" href="../Modulos/Registrate/formUserRegistrarse.html" value="cancelar">
                                     Cancelar
                                 </button>
-                                <button class="btn btn-warning" value="aceptar" >
+                                <a href="CtrlRegistroE.php" id="btnAgregarE" class="btn btn-warning" value="aceptar" >
                                     Aceptar
-                                </button>
+                                </a>
                                 <br>
                                 <br>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <!--Mostrar resultado insert-->
-                    <?php
-                     $registros=mysql_query($conexion, "SELECT e.nombre, e.rfc from estado ed, cuidad c,empresa e, usuario u  where ed.id_estado=c.id_estado and c.id_ciudad=e.id_ciudad and e.id_usuario=u.id_usuario") or 
-                        die("Error en el registro:".mysqli_error($conexion));
-                        echo '<option value="'.$reg['nombre'].'">'.$reg["rfc"].'</option>';
-                        if($resultado = mysqli_fetch_array($registros)){
-                                $regU=mysqli_query($conexion,"INSERT INTO usuario(
-                                id_usuario,
-                                nombre,
-                                apellidos,
-                                email,
-                                password,
-                                id_rol,
-                                status)
-                                values(
-                                '$this->id_usuario',
-                                '$this->nombre',
-                                '$this->apellidos',
-                                '$this->email',
-                                '$this->email',
-                                '$this->password',
-                                '$this->id_rol',
-                                '$this->status'
-                                )")
-                        or die("Problemas con query:".mysqli_error($conexion));
-                        //header("location: ../Modulos/Registrate/CtrlRegistroE.php");
-                    $regE=mysqli_query($conexion,"INSERT INTO empresa(id_empresa,
-                        direccion,
-                        nombre,
-                        id_estado,
-                        id_ciudad,
-                        codigo_postal,
-                        id_usuario,
-                        num_telefono,
-                        folio_convenio,
-                        rfc,
-                        status
-                        )values(
-                        '$this->id_empresa',
-                        '$this->direccion',
-                        '$this->id_estado',
-                        '$this->id_ciudad',
-                        '$this->codigo_postal',
-                        '$this->id_usuario',
-                        '$this->num_telefono',
-                        '$this->folio_convenio',
-                        '$this->rfc',
-                        '$this->status')")
-                        or die("Problemas con query:".mysqli_error($conexion));
-                       // header("location: ../Modulos/Registrate/CtrlRegistroE.php");
-
-                        }
-                        else{
-                         //    echo "Error en el registro"; 
-                        }
-                ?>
-  
-                </div>
-
 
             </div>
         </center>
         </section>
-            <!--section class="content-section2 bg-primary text-white text-center" id="tabla_empleos">
-                <div class="container">
-                    <div class="content-section-heading">
-                        <h2 class="text-secondary mb-0">
-                            Registrar Empresa
-                        </h2>
-                        <center>
-                    <div class="input-group input-group-sm mb-3">
-                      <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Nombre de la empresa
-                            </span>
-                      </div>
-                        <input aria-describedby="input" aria-label="large" class="form-control" type="text" id="nombreE" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Dirección
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="text" id="direccion" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Estado
-                            </span>
-                        </div>
-                          <select>
-                            <option value="0">Seleccione:</option>
-                              <?php
-                              $registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
-                                or die(mysql_error($conexion));
-                                //mysqli_close();
-                                while ($reg = mysqli_fetch_array($registros)) {
-                                  echo '<option value="'.$reg['id_estado'].'">'.$reg["nombre_estado"].'</option>';
-                                }
-                              ?>
-                            </select>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="text" id="estado" required="true" value=""/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Ciudad
-                            </span>
-                        </div>
-                        <select>
-                            <option value="0">Seleccione:</option>
-                              <?php
-                              $registros = mysqli_query ($conexion,"SELECT id_ciudad, nombre_ciudad FROM ciudad")
-								or die(mysql_error($conexion));
-                                while($reg=mysqli_fetch_array($registros)){
-                                echo '<option value="'.$reg['id_ciudad'].'">'.$reg["nombre_ciudad"].'</option>';
-                                }
-                              ?>
-                            </select>
-                        <put aria-describedby="input" aria-label="small" class="form-control" type="text" id="ciudad" required="true" value=""/>
-              </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Código Postal
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="text" id="codigo_postal" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Teléfono
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="tel" id="telefono" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                RFC
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="text" id="rfc" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Nombre del contacto con la empresa
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="text" id="contactoE" required="true"/>
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">
-                                Contraseña
-                            </span>
-                        </div>
-                        <input aria-describedby="input" aria-label="small" class="form-control" type="password" id="contrasena" required="true"/>
-                    </div>
-                    <br>
-                        <br>
-                            <div class="col-12">
-                                <input class="btn btn-dark" type="reset" id="borrar" value="limpiar"/>
-                                <button class="btn btn-danger" href="../Modulos/Registrate/formUserRegistrarse.html" value="cancelar">
-                                    Cancelar
-                                </button>
-                                <button class="btn btn-warning" value="aceptar" >
-                                    Aceptar
-                                </button>
-                                <br>
-                                <br>
-                            </div>
-                        <br>
-                    <br>
-                </form>
-                            </div>
-                        </center>
-                    </div>
-                </div-->
-            </section>
-    </body>
-</html>
-
+        <!---------------------------------------------->
+            
 <!-- Footer -->
-<!--    <center>
+ <center>
             <div id="contacto">
                 <h2>
                     Contacto:
@@ -467,8 +279,44 @@ $conexion = $db->get_connection();
                     Copyright © Tech Solutions 2019
                 </p>
             </div>
-        </footer> -->
+        </footer>
+        <!----------------------------------------------------->
+            
+    <!--script type="text/javascript">
+    $(document).ready(function(){
+        $('#agregarU').load('../../Modulos/Registrate/CtrlRegistroE.php');
 
+    $('#btnAgregarU').click(function(){
+      if(validarFormVacio('registroUs') > 0){
+        alertify.alert("Debes llenar todos los campos por favor!");
+        return false;
+      }
+
+      datos=$('#registroUs').serialize();
+
+      $.ajax({
+        type:"POST",
+        data:datos,
+        url:"../../Modulos/Registrate/CtrlInsertar.php",
+        success:function(r){
+          if(r==1){
+           $('#registroUs')[0].reset();
+           $('#agregarU').load('CtrlRegistroE.php');
+           alertify.success("Agregado con exito :)");
+         }else{
+          alertify.error("No se pudo agregar :(");
+        }
+      }
+    });
+    });
+
+
+  });
+</script-->
+
+
+
+      <!---->
       <!-- Scroll to Top Button-->
       <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
           <i class="fas fa-angle-up">
