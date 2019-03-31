@@ -1,13 +1,3 @@
-<?php
-//include DB connection
-require_once "../../php/conexion/ClassConnection.php";
-//require_once "../../php/DTO/UsuarioDTO.php";
-include "../../php/DTO/EmpresaDTO.php";
-include "../../Modulos/Registrate/MdlRegistro.php";
-$db       = new connectionDB();
-$conexion = $db->get_connection();
-$empresa = new EmpresaDTO();
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,9 +7,9 @@ $empresa = new EmpresaDTO();
                     <meta content="" name="author">
                         <title>
                             Registrado
-                        </title>
+                        </title-->
                         <!-- Bootstrap Core CSS -->
-                        <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+                        <!--link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
                             <!-- Custom Fonts -->
                             <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
                                 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -75,7 +65,7 @@ $empresa = new EmpresaDTO();
                         Contact
                     </a>
                 </li-->
-            </ul>
+            <!--/ul>
         </nav>
         </section>
         <!-- Callout -->
@@ -217,6 +207,48 @@ $empresa = new EmpresaDTO();
 
             <!---------------------------------------------------------------------------------------------------------------------------->
 
+<!---------------------------------------------------------------------------------------------------------------------------->
+<!--table id="agregarUs" class="table table-sm table-inverse table-bordered">
+    <tr style="font-weight: bold" >
+      <td>Usuario</td>
+      <td>Apellidos</td>
+      <td>Email</td>
+      <td>Rol</td>
+      <td>Estatus</td>
+      <td style="text-align: center;">Editar</td>
+      <td style="text-align: center;">Eliminar</td>
+    </tr>
+  <?php 
+    $registros=mysqli_query($conexion, "SELECT nombre, apellidos, email, password, id_rol,   status from usuario") or 
+        die("Error en el registro:".mysqli_error($conexion));
+        if($resultado = mysqli_fetch_array($registros))
+    while ($ver=mysqli_fetch_row($registros)):
+   ?>
+    <tr>
+      <td><?php echo $ver[0]; ?></td>
+      <td><?php echo $ver[1]; ?></td>
+      <td><?php echo $ver[2]; ?></td>
+      <td><?php echo $ver[3]; ?></td>
+      <td><?php echo $ver[4]; ?></td>      
+    </tr>
+    <?php 
+      endwhile;
+     ?>
+</table-->
+
+
+
+
+        <!----------------------------------------------------------->
+
+
+
+
+
+
+
+            
+<!-------------------------------------------------------------------------------------------------------------------------------------->
 
         </section>
         <!-- Footer -->
@@ -260,7 +292,7 @@ $empresa = new EmpresaDTO();
         <!-- Plugin JavaScript -->
         <script src="../../vendor/jquery-easing/jquery.easing.min.js">
         </script>
-        <!-- Custom scripts for this template -->
+        <Custom scripts for this template -->
         <script src="../../js/stylish-portfolio.min.js">
         </script>
     </body>
@@ -268,7 +300,7 @@ $empresa = new EmpresaDTO();
 
 
 
-
+<!--------------------------------------------------------------------------------------------------------------------------------------->
 
 
 

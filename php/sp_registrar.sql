@@ -1,5 +1,7 @@
 DELIMITER //
-CREATE PROCEDURE sp_registrar_empresa (nombre_u varchar(50),apellido_u varchar(50),email_u varchar (50), pass varchar (50),direccion_em varchar (50),nombre_em varchar (50), estado int, ciudad int, cp int,telefono varchar (13), folio varchar(30),rfc_em varchar(15))
+CREATE PROCEDURE sp_registrar_empresa (nombre_u varchar(50),apellido_u varchar(50),email_u varchar (50), 
+    pass varchar (50),direccion_em varchar (50),nombre_em varchar (50), estado int, ciudad int, cp int,
+    telefono varchar (13), folio varchar(30),rfc_em varchar(15))
 BEGIN
     DECLARE flag boolean;
     DECLARE count int;

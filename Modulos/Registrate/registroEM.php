@@ -64,7 +64,7 @@ $usuario = new UsuarioDTO();
                 </li-->
             </ul>
         </nav>
-        <form action="insertar.php" id="registroUs" method="post">
+        <form action="insertar.php" id="Registrar" method="post">
             <section class="content-section2 bg-primary text-white text-center" >
             <center>
             <div id="datos_usuario" >
@@ -91,14 +91,14 @@ $usuario = new UsuarioDTO();
                                            Nombre
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text"   value="" name="nombre_u">
+                                    <input aria-describedby="input" aria-label="small" class="form-control" required="true" type="text"   value="" name="nombre_u" id="nombre_u">
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
                                             Apellidos
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"   value="" name="apellidos">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"   value="" name="apellidos" id="apellidos">
                                         </input>
                                         
                                     <div class="input-group-prepend" style="margin-left: 20px" >
@@ -106,14 +106,14 @@ $usuario = new UsuarioDTO();
                                                  Correo Electrónico
                                             </span>
                                         </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="email"  value="" name="email">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="email"  value="" name="email" id="email">
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px" >
                                             <span class="input-group-text" id="inputGroup-sizing-sm">
                                                  Contraseña
                                             </span>
                                         </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"   value="" name="pass">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"   value="" name="pass" id="pass">
                                     </input>
                                     </div>
                                     </div>
@@ -125,20 +125,20 @@ $usuario = new UsuarioDTO();
                                 <hr>
                                 <!--h1>Datos empresa</h1-->
                                 <br>
-                                 <div class="input-group input-group-sm mb-3">
+                                 <!--div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend" >
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
                                            Confirmar contraseña
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"  value="" name="cpass">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="password"  value="" name="cpass" id="pass2">
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">
                                             Empresa
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="nombre_e">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="nombre_e" id="nombre_e">
                                         </input>
                                         <div class="input-group-prepend" style="margin-left: 20px" >
                                             <span class="input-group-text" id="inputGroup-sizing-sm">
@@ -146,7 +146,7 @@ $usuario = new UsuarioDTO();
                                             </span>
                                         </div>
                                     <select>
-                                        <option  id="estado" value="0">Seleccione:</option>
+                                        <option id="estado" value="0">Seleccione:</option>
                                           <?php
                                           $registros = mysqli_query ($conexion,"SELECT id_estado, nombre_estado FROM estado")
                                             or die(mysql_error($conexion));
@@ -165,7 +165,7 @@ $usuario = new UsuarioDTO();
                                            Dirección
                                         </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="dirección">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="dirección" id="dirección">
                                     </input>
 
                                          <div class="input-group-prepend" style="margin-left: 20px" >
@@ -188,7 +188,7 @@ $usuario = new UsuarioDTO();
                                             Número de teléfono
                                          </span>
                                     </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number" value="">
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="number" id="telefono" value="">
                                     </input>
                                     </div>
                                     <br>
@@ -201,7 +201,7 @@ $usuario = new UsuarioDTO();
                                             Convenio UTN
                                         </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="convenio">
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  value="" name="convenio" id="convenio">
                                         </input>
 
                                     <div class="input-group-prepend" style="margin-left: 20px">
@@ -214,8 +214,8 @@ $usuario = new UsuarioDTO();
                                                 RFC
                                          </span>
                                     </div>
-                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="convenio">
-                                        </input>
+                                        <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" value="" name="rfc" id="rfc">
+                                        </input-->
                                 </div>
                             
                                 </div>
@@ -228,9 +228,8 @@ $usuario = new UsuarioDTO();
                                 <button class="btn btn-danger" href="../Modulos/Registrate/formUserRegistrarse.html" value="cancelar">
                                     Cancelar
                                 </button>
-                                <a href="CtrlRegistroE.php" id="btnAgregarE" class="btn btn-warning" value="aceptar" >
-                                    Aceptar
-                                </a>
+                                <input type="submit" name="opcion" value="Registrate" class="button"> 
+                                </input>
                                 <br>
                                 <br>
                         </div>
@@ -281,42 +280,7 @@ $usuario = new UsuarioDTO();
             </div>
         </footer>
         <!----------------------------------------------------->
-            
-    <!--script type="text/javascript">
-    $(document).ready(function(){
-        $('#agregarU').load('../../Modulos/Registrate/CtrlRegistroE.php');
-
-    $('#btnAgregarU').click(function(){
-      if(validarFormVacio('registroUs') > 0){
-        alertify.alert("Debes llenar todos los campos por favor!");
-        return false;
-      }
-
-      datos=$('#registroUs').serialize();
-
-      $.ajax({
-        type:"POST",
-        data:datos,
-        url:"../../Modulos/Registrate/CtrlInsertar.php",
-        success:function(r){
-          if(r==1){
-           $('#registroUs')[0].reset();
-           $('#agregarU').load('CtrlRegistroE.php');
-           alertify.success("Agregado con exito :)");
-         }else{
-          alertify.error("No se pudo agregar :(");
-        }
-      }
-    });
-    });
-
-
-  });
-</script-->
-
-
-
-      <!---->
+    
       <!-- Scroll to Top Button-->
       <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
           <i class="fas fa-angle-up">

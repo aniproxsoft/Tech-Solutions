@@ -6,17 +6,14 @@ class MdlRegistro
     public function __construct()
     {
     }
-    private $id_usuario;
+   
     private $nombre_usuario;    
     private $apellidos;    
     private $email;
-    private $id_rol;
-    private $status_usuario;
-    //user getters and setters
-    public function getIDUsuario()
-    {
-        return $this->id_usuario;
-    }
+   private $password;
+   private $id_rol;
+   private $status; 
+    /*user getters and setters
     public function getNombreUsuario()
     {
         return $this->nombre_usuario;
@@ -29,22 +26,12 @@ class MdlRegistro
     {
         return $this->email;
     }
-    public function getIDRol()
-    {
-        return $this->id_rol;
-    }
-    public function getStatus_usuario()
-    {
-        return $this->status_usuario;
-    }
+    
     public function getPassword()
     {
         return $this->password;
     }
-    public function setIDUsuario($id_usuario)
-    {
-        $this->id_usuario = $id_usuario;
-    }
+    
     public function setNombreUsuario($nombre_usuario)
     {
         $this->nombre_usuario = $nombre_usuario;
@@ -73,16 +60,16 @@ class MdlRegistro
 /*---------------------------------------------------------------------------------------------------------------------*/
 //Inicializar las variables
         public function inicializar(
-                    $id_usuario,                    
-                    $nombre_usuario,
+                   
+                    $nombre,
                     $apellidos,
                     $email,
                     $password,
                     $id_rol,
-                    $status_usuario
+                    $status
                                     ){
-        $this->id_usuario = $id_usuario;            
-        $this->nombre_usuario = $nombre_usuario;
+        
+        $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->email = $email;
         $this->password = $password;
@@ -90,7 +77,24 @@ class MdlRegistro
         $this->status_usuario = $status_usuario;
     }
 /*------------------------------------------------------------------------------------------------------------------------*/
-  public function agregarUsuario(){
+
+        public function realizarRegistro(){
+                $db       = new connectionDB();
+                $conexion = $db->get_connection();
+                
+                $con=mysqli_query($conexion,"INSERT INTO usuario (nombre, apellidos,email,password,id_rol,status) 
+                                               VALUES ('$this->nombre','$this->apellidos','$this->email','$this->password',1,1)")
+                                               or die("Problemas en el select".mysqli_error($con));
+                /*$conE=mysqli_query($conexion,"INSERT INTO empresa (direccion, nombre, id_estado, id_ciudad, codigo_postal,id_usuario,num_telefono,folio_convenio,rfc, status) VALUES (direccion_em,nombre_em,estado,ciudad,cp,id_user,telefono,folio,rfc_em,3) WHERE id_usuario=(max(id_usuario)");*/
+
+                    echo"<script type=\"text/javascript\">alert('Usuario Agregado'); window.location='Index.html';</script>"; 
+                
+        }                   
+
+
+/*-------------------------------------------------------------------------------------------------------------------------*/
+  
+  /*public function agregarUsuario(){
     $db       = new connectionDB();
     $conexion = $db->get_connection();    
 
@@ -98,7 +102,7 @@ class MdlRegistro
             /*if($_POST["password"])==$_POST["password2"])){
                 echo "No coincide password";
             }else {*/
-                $registros=mysqli_query($conexion, "SELECT * from usuario WHERE id_usuario=(SELECT MAX(id_usuario) as id FROM usuario)") 
+       /*         $registros=mysqli_query($conexion, "SELECT * from usuario WHERE id_usuario=(SELECT MAX(id_usuario) as id FROM usuario)") 
                 or die("Error en el registro:".mysqli_error($conexion));
                     if($resultado = mysqli_fetch_array($registros)){
                         $regU=mysqli_query($conexion,"INSERT INTO usuario(
@@ -136,6 +140,6 @@ class MdlRegistro
   }else{
                               echo "Error en el registro"; 
                         }
-}
+}*/
 }
 ?>

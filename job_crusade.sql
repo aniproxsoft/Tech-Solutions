@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-03-2019 a las 09:06:32
--- Versión del servidor: 5.7.19
--- Versión de PHP: 5.6.31
+-- Tiempo de generación: 31-03-2019 a las 18:52:53
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,6 +69,34 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_autentification` (`user` VARCHAR
         null as rfc,null as status;
     END if;
     SELECT * FROM temp_usuario ;
+END$$
+
+DROP PROCEDURE IF EXISTS `sp_registrar_empresa`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_empresa` (`nombre_u` VARCHAR(50), `apellido_u` VARCHAR(50), `email_u` VARCHAR(50), `pass` VARCHAR(50), `direccion_em` VARCHAR(50), `nombre_em` VARCHAR(50), `estado` INT, `ciudad` INT, `cp` INT, `telefono` VARCHAR(13), `folio` VARCHAR(30), `rfc_em` VARCHAR(15))  BEGIN
+    DECLARE flag boolean;
+    DECLARE count int;
+    DECLARE id_user int;
+    DECLARE msj varchar (50);
+    select (max(id_usuario) +1) as id_u from usuario INTO id_user;
+    INSERT INTO usuario (id_usuario,nombre,apellidos,email,password,id_rol,status)      VALUES (id_user,nombre_u,apellido_u,email_u,MD5(pass),1,1);
+    
+    SET COUNT = ROW_COUNT();
+    IF(COUNT>0) THEN 
+    
+        INSERT INTO empresa (direccion, nombre, id_estado, id_ciudad,                       codigo_postal,id_usuario,num_telefono,folio_convenio,rfc, status) VALUES            (direccion_em,nombre_em,estado,ciudad,cp,id_user,telefono,folio,rfc_em,3);
+        SET COUNT = ROW_count();
+        IF (COUNT>0) THEN
+        SET flag = true;
+        SET msj = 'Registro exitoso. Su solicitud esta en proceso.';
+        ELSE
+        SET flag = false;
+        SET msj = 'Error, no se insertó en la segunda tabla.';
+        END IF;
+    ELSE
+        SET flag = false;
+        SET msj = 'Error no se inserto en la primera tabla';
+    END IF;
+    SELECT flag, msj, id_user;
 END$$
 
 DELIMITER ;
@@ -152,7 +180,7 @@ INSERT INTO `ciudad` (`id_ciudad`, `nombre_ciudad`, `id_estado`) VALUES
 
 DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE IF NOT EXISTS `empresa` (
-  `id_empresa` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL AUTO_INCREMENT,
   `direccion` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `id_estado` int(11) DEFAULT NULL,
@@ -167,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   KEY `fk_estado_empresa` (`id_estado`),
   KEY `fk_ciudad_empresa` (`id_ciudad`),
   KEY `fk_usuario_empresa` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `empresa`
@@ -175,7 +203,8 @@ CREATE TABLE IF NOT EXISTS `empresa` (
 
 INSERT INTO `empresa` (`id_empresa`, `direccion`, `nombre`, `id_estado`, `id_ciudad`, `codigo_postal`, `id_usuario`, `num_telefono`, `folio_convenio`, `rfc`, `status`) VALUES
 (1, 'Calle Faisan numero 43', 'Tech Solutions ', 1, 11, 57800, 1, '55334622', '', 'PECD750307Q99', '1'),
-(2, 'Calle Dolores #420', 'CONSWARE', 2, 6, 571223, 2, '55123415263', 'CONV123450', 'FERD750307Q97', '1');
+(2, 'Calle Dolores #420', 'CONSWARE', 2, 6, 571223, 2, '55123415263', 'CONV123450', 'FERD750307Q97', '1'),
+(4, 'ELM STREET S.N.', 'DARK GOOGLE', 1, 2, 2222, 4, '55667788', 'DG123', 'DG290319RL12', '3');
 
 -- --------------------------------------------------------
 
@@ -232,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `puesto` (
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -241,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `status` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `fk_rol_usuario` (`id_rol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -249,7 +278,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `email`, `password`, `id_rol`, `status`) VALUES
 (1, 'Gabriel Antonio', 'Rodriguez Barrera', 'antonio.01yea@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, '1'),
-(2, 'Maria Fernanda', 'Zamudio Pelaez', 'ferjumex@gmail.com', 'dd6b8391d79e582e5c741405c3e55932', 1, '1');
+(2, 'Maria Fernanda', 'Zamudio Pelaez', 'ferjumex@gmail.com', 'dd6b8391d79e582e5c741405c3e55932', 1, '1'),
+(4, 'John', 'Smith', 'john@123.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -317,7 +347,7 @@ ALTER TABLE `ciudad`
 ALTER TABLE `empresa`
   ADD CONSTRAINT `fk_ciudad_empresa` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudad` (`id_ciudad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_estado_empresa` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_empresa` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_empresa` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
@@ -331,7 +361,7 @@ ALTER TABLE `usuario`
 ALTER TABLE `vacante`
   ADD CONSTRAINT `fk_grado_vacante` FOREIGN KEY (`id_grado_esc`) REFERENCES `grado_escolar` (`id_grado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_puesto_vacante` FOREIGN KEY (`id_puesto`) REFERENCES `puesto` (`id_puesto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_vacante` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_vacante` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
