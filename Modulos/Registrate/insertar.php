@@ -1,55 +1,36 @@
 <?php
 require_once "../../php/conexion/ClassConnection.php";
 require_once "../../php/DTO/UsuarioDTO.php";
-include "../../Modulos/Registrate/MdlRegistro.php";
-$db       = new connectionDB();
-$conexion = $db->get_connection();
-$usuario = new UsuarioDTO();
- 
+$db             = new connectionDB();
+$conexion       = $db->get_connection();
+$usuario        = new UsuarioDTO();
+$nombre         = $_POST['nombre'];
+$apellidos      = $_POST['apellidos'];
+$email          = $_POST['email'];
+$pass           = $_POST['pass'];
+$nombre_empresa = $_POST['nombre_e'];
+$direccion      = $_POST['direccion'];
+$id_estado      = $_POST['estaditos'];
+$id_ciudad      = $_POST['city'];
+$codigo_postal  = $_POST['postal'];
+$num_telefono   = $_POST['telefono'];
+$folio_convenio = $_POST['convenio'];
+$rfc            = $_POST['rfc'];
+
 $statement = $conexion->prepare("CALL sp_registrar_empresa(?,?,?,?,?,?,?,?,?,?,?,?)");
-//string s int i poner todos los atributos
-$statement->bind_param("ssssssiiisss", $nombre,$apellidos,$email, $password,$direccion,$nombre_empresa, $id_estado, $id_ciudad, $codigo_postal, $num_telefono, $folio_convenio, $rfc);
-//$sql="CALL sp_registrar_empresa($nombre,$apellidos,$email, $password,$direccion,$nombre_empresa, $id_estado, $id_ciudad, $codigo_postal, $num_telefono, $folio_convenio, $rfc)";
 
-$statement->execute();/* or die (implode(':',$statement->errorInfo());*/
-//iduser flag msj en el orden q return
+$statement->bind_param("ssssssiiisss", $nombre, $apellidos, $email, $pass, $direccion, $nombre_empresa, $id_estado, $id_ciudad, $codigo_postal, $num_telefono, $folio_convenio, $rfc);
+$statement->execute();
 
-$statement->bind_result($flag,$msj,$id_user);
-
+$statement->bind_result($flag, $msg, $id_user);
 $statement->fetch();
-$usuario->setNombre($nombre);
-$usuario->setApellidos($apellidos);
-$usuario->setEmail($email);
-$usuario->setPassword($password);
-$usuario->setDireccion($direccion);
-$usuario->setNombreEmpresa($nombre_empresa);
-$usuario->setIDEstado($id_estado);
-$usuario->setIDCiudad($id_ciudad);
-$usuario->setCodigoPostal($codigo_postal);
-$usuario->setNumTelefono($num_telefono);
-$usuario->setFolioConvenio($folio_convenio);
-$usuario->setRFC($rfc);
+// echo $flag . "-" . $msg;
 
-if ($flag == true) {
-    /*session_start();
-    $_SESSION['usuario'] = serialize($usuario);
-    header("Location:../Vacantes/inicio_vacantes.php");*/
-    ?> 
-	<script type="text/javascript">
-		alert("Registro exitoso. Su solicitud esta en proceso")
-		location.href="iniciar_sesion.html";
-		//poner msj q esta en bd
-	</script>
-	<?php
+if ($flag === 1) {
+
+    echo "<script type='text/javascript'>alert('" . $msg . "     puedes iniciar sesión');location.href='../login/iniciar_sesion.html';</script >";
+
 } else {
-    ?>
-	<script type="text/javascript">
-		alert("Error no se inserto en la primera tabla") 
-		//location.href="../../Modulos/Registrate/formUserRegistrarse.html";
-		//poner msj q esta en bd
-	</script>
-	<?php
+    echo "<script type = 'text/javascript' >alert('" . $msg . "');location.href='registroEM.php';</script>";
+
 }
-	$statement->close();
-	$conexion->close();
-	?>

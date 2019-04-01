@@ -120,10 +120,10 @@ if (!isset($sesion)) {
                                     </input>
                                     <div class="input-group-prepend" style="margin-left: 20px" >
                                             <span class="input-group-text" id="inputGroup-sizing-sm">
-                                                 Correo Electrónico
+                                                 Email
                                             </span>
                                         </div>
-                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text"  readonly="true" value="<?php echo $usuario->getEmail() ?>" >
+                                    <input aria-describedby="input" aria-label="small" class="form-control"  required="true" type="text" style="width: 70px" readonly="true" value="<?php echo $usuario->getEmail() ?>" >
                                     </input>
                                     </div>
                                     </div>
